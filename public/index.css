@@ -1,0 +1,47 @@
+html,
+#root,
+body {
+  margin: 0
+}
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+  min-width: 60px;
+}
+
+.hit {
+  background-color: lightgoldenrodyellow;
+}
+
+.miss {
+  background-color: lightpink;
+}
+
+.in {
+  background-color: lightgreen;
+}
+
+.on {
+  background-color: lightblue;
+}
+
+.btn {
+  min-width: 4rem;
+  border: 1px black solid;
+  margin: .2rem;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}

@@ -11,6 +11,13 @@ const RESULTS = {
 	in: 3,
 };
 
+function setup() {
+	const startBtn = document.getElementById("start-btn");
+	const stopBtn = document.getElementById("stop-btn");
+	startBtn.addEventListener("click", start);
+	stopBtn.addEventListener("click", () => completeGame("Complete"));
+}
+
 function speak(text) {
 	console.log("speaking...", text);
 	const msg = new SpeechSynthesisUtterance(text);
@@ -46,6 +53,10 @@ function completeGame(msg) {
 	annyang.abort();
 	document.querySelector("body").append(div);
 	console.log(rounds);
+	const startBtn = document.getElementById("start-btn");
+	const stopBtn = document.getElementById("stop-btn");
+	startBtn.className = "btn";
+	stopBtn.className = "btn hidden";
 }
 
 function createTable() {
@@ -59,11 +70,14 @@ function createTable() {
 
 	for (let i = 0; i < ROUND_LENGTH; i++) {
 		const th = document.createElement("th");
+		th.innerText = i + 1;
 		tr.appendChild(th);
 	}
 	thead.appendChild(tr);
 	table.appendChild(thead);
 	table.appendChild(tbody);
+	const scores = document.getElementById("scores");
+	scores.appendChild(table);
 	createRow();
 }
 
@@ -94,6 +108,27 @@ function updateCell(cell, toss) {
 	c.className = toss;
 }
 
+function start() {
+	annyang.start();
+
+	const btnDiv = document.querySelector("div.btn-container");
+	btnDiv.innerText = "Try Saying: ";
+
+	for (const key of Object.keys(RESULTS)) {
+		const btn = document.createElement("button");
+		btn.innerText = key;
+		btn.className = "btn " + key;
+		btn.addEventListener("click", () => listenForToss(btn.innerText));
+		btnDiv.appendChild(btn);
+	}
+	createTable();
+	setTimeout(() => speak("Lets go!"), 1000);
+	const startBtn = document.getElementById("start-btn");
+	const stopBtn = document.getElementById("stop-btn");
+	startBtn.className = "btn hidden";
+	stopBtn.className = "btn";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 	if (annyang) {
 		const commands = {
@@ -104,10 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			done: () => completeGame("Complete"),
 		};
 		annyang.addCommands(commands);
-		annyang.start();
 		console.log("Annyang is ready!");
-		setTimeout(() => speak("Lets go!"), 1000);
-		createTable();
 	} else {
 		console.log(
 			"Annyang not found or browser does not support Speech Recognition",
@@ -115,9 +147,4 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
-const btns = document.getElementsByClassName("btn");
-console.log(btns);
-
-for (const b of btns) {
-	b.addEventListener("click", () => listenForToss(b.innerText));
-}
+setup();
