@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Simple Speech Recognition</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+		<style>
+			.hit {
+				background-color: lightgoldenrodyellow;
+			}
+			.miss {
+				background-color: lightpink;
+			}
+			.in {
+				background-color: lightgreen;
+			}
+			.on {
+				background-color: lightblue;
+			}
+
+			.btn {
+				min-width: 60px;
+				border: 1px black solid;
+				margin: 10px;
+				padding: 10px;
+				cursor: pointer;
+				border-radius: 5px;
+			}
+
+			table {
+				width: 50%;
+				border-collapse: collapse;
+			}
+			td,
+			th {
+				border: 1px solid black;
+				padding: 8px;
+				text-align: center;
+				min-width: 60px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Cornhole</h1>
+		<form onsubmit="return false;">
+			Try saying:
+			<button class="btn hit">hit</button>
+			<button class="btn miss">miss</button>
+			<button class="btn on">on</button>
+			<button class="btn in">in</button>
+		</form>
+		<div class="scores"></div>
+		<table>
+			<thead>
+				<tr>
+					<th>Round</th>
+					<th>1</th>
+					<th>2</th>
+					<th>3</th>
+					<th>4</th>
+					<th>5</th>
+					<th>6</th>
+					<th>7</th>
+					<th>8</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<script src="main.js"></script>
+	</body>
+</html>
